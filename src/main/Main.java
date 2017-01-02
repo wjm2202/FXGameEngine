@@ -174,7 +174,7 @@ public class Main extends Application {
     }
     private void loadImageAssets() {
         splashScreen = new Image("/resources/pics/space.jpg", WIDTH, HEIGHT, true, false, true);
-        instructionLayer = new Image("/resources/pics/ground.jpg", WIDTH, HEIGHT, true, false, true);
+        instructionLayer = new Image("/resources/pics/Tittle.png", WIDTH, HEIGHT, true, false, true);
         legalLayer = new Image("/resources/pics/legal.png", WIDTH, HEIGHT, true, false, true);
         scoresLayer = new Image("/resources/pics/score.png", WIDTH, HEIGHT, true, false, true);
         BG = new Image("/resources/pics/BG.png", WIDTH, HEIGHT, true, false, true);

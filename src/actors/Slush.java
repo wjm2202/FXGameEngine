@@ -44,7 +44,7 @@ public class Slush extends Hero {
     protected int attackDelay = 30;
     protected int attackCounter = 0;
     protected boolean attacking = false;
-    protected boolean reset = false;
+    protected boolean reset = true;
 
 
     public Slush(Main islush, String SVGData, double xLocation, double yLocation, Image... spriteCels){

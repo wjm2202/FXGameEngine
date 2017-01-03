@@ -19,10 +19,18 @@ public class LoadImgAssets {
     protected ArrayList<Image> walk = new ArrayList<>();
 //platforms
     protected ArrayList<Image> platforms = new ArrayList<>();
-
+//weaponds
+    protected ArrayList<Image> sword = new ArrayList<>();
 
     public LoadImgAssets(){
         loadSlushImgs();
+        loadSwordImgs();
+    }
+
+    public void loadSwordImgs(){
+        for(int i =1;i<=8;i++){
+            sword.add(new Image(("/resources/pics/sword/"+i+".png")));
+        }
     }
 
     public void loadSlushImgs(){
@@ -63,6 +71,8 @@ public class LoadImgAssets {
         walk.add(new Image("/resources/pics/walk/walk10.png"));
 
     }
+
+    public ArrayList<Image> getSword(){return sword;}
 
     public ArrayList<Image> getPlatforms(){return platforms;}
 

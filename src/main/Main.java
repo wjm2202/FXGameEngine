@@ -1,5 +1,6 @@
 package main;
 
+import actors.Actor;
 import actors.CastingDirector;
 import actors.Prop;
 import actors.Slush;
@@ -101,7 +102,7 @@ public class Main extends Application {
                     slush.setFlipH(true);
                     break;
                 case W:
-                    //up = true;
+                    up = true;
                     break;
                 case S:
                     down = true;
@@ -168,6 +169,8 @@ public class Main extends Application {
                     break;
                 case N:
                     run = false;
+                    break;
+                case K:
                     break;
             }
         });
@@ -255,10 +258,12 @@ public class Main extends Application {
     }
     private void createStartGameLoop() {
         gamePlayLoop = new GamePlayLoop(this);
+
     }
     public void startLoop(){
+
         gamePlayLoop.stop();
-        System.out.println(WIDTH/4);
+        //System.out.println(WIDTH/4);
         if(start){
             propList = lvlGen.getPropsForLevel(lvl);
             for(Prop p : propList){

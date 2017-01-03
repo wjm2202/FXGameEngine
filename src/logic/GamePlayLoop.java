@@ -39,6 +39,12 @@ public class GamePlayLoop extends AnimationTimer {
             fps=0;
         }
         main.slush.update();
+        for(Prop p: main.propList){
+            if((p.getType()>='0')&&(p.getType() <= '9')){
+                p.update();
+                //System.out.println("gameloop update of props");
+            }
+        }
 
     }
     public void onScreen(){
@@ -53,10 +59,17 @@ public class GamePlayLoop extends AnimationTimer {
             } else {
                 p.setOnScreen(false);
                 main.castDirector.addToRemovedActors(p);
-                //main.castDirector.resetRemovedActors();
+                if((p.getType()>='0')&&(p.getType()>='7')){
+                    remove.remove(p);
+                }
             }
         }
         main.castDirector.resetRemovedActors();
+        int removeSize = remove.size();
+        for(int i =0;i<removeSize;i++){
+            main.propList.remove(remove.get(i));
+        }
+        remove.clear();
     }
     @Override
     public void start() {

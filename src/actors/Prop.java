@@ -16,6 +16,40 @@ public class Prop extends Actor{
 
     @Override
     public void update() {
+        char type = this.getType();
+        //System.out.println(" in prop update char value = "+type);
+        switch(type){
+            case '0':
+                this.getSpriteFrame().setTranslateY(this.getSpriteFrame().getTranslateY()-10);
+                break;
+            case '1':
+                this.getSpriteFrame().setTranslateX(this.getSpriteFrame().getTranslateX()+8);
+                this.getSpriteFrame().setTranslateY(this.getSpriteFrame().getTranslateY()-8);
+                break;
+            case '2':
+                this.getSpriteFrame().setTranslateX(this.getSpriteFrame().getTranslateX()+10);
+                //System.out.println("sword right");
+                break;
+            case '3':
+                this.getSpriteFrame().setTranslateX(this.getSpriteFrame().getTranslateX()+8);
+                this.getSpriteFrame().setTranslateY(this.getSpriteFrame().getTranslateY()+8);
+                break;
+            case '4':
+                this.getSpriteFrame().setTranslateY(this.getSpriteFrame().getTranslateY()+10);
+                break;
+            case '5':
+                this.getSpriteFrame().setTranslateX(this.getSpriteFrame().getTranslateX()-8);
+                this.getSpriteFrame().setTranslateY(this.getSpriteFrame().getTranslateY()+8);
+                break;
+            case '6':
+                this.getSpriteFrame().setTranslateX(this.getSpriteFrame().getTranslateX()-10);
+                //System.out.println("sword left");
+                break;
+            case '7':
+                this.getSpriteFrame().setTranslateX(this.getSpriteFrame().getTranslateX()-8);
+                this.getSpriteFrame().setTranslateY(this.getSpriteFrame().getTranslateY()-8);
+                break;
+        }
 
     }
 }

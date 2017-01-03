@@ -24,6 +24,7 @@ public class Slush extends Hero {
     protected ArrayList<Image> jumpAttack = img.getJumpAttack();
     protected ArrayList<Image> run = img.getRun();
     protected ArrayList<Image> walk = img.getWalk();
+    protected ArrayList<Image> sword = img.getSword();
     protected static final double SPRITE_PIXELS_X = 53;
     protected static final double SPRITE_PIXELS_Y = 64;
     protected static final double rightBoundary  =   WIDTH/2  - SPRITE_PIXELS_X/2;
@@ -34,13 +35,16 @@ public class Slush extends Hero {
     protected int counter=0;
     protected int jumpheight=40;
     protected int jumpCounter =0;
-    protected int jumpChange=2;
     protected int fallFactor = 2;
     protected int jumpFactor = -4;
     protected StackPane root;
     protected boolean collison = false;
     protected double HEIGHTPX = 60;
     protected double WIDTHPX = 53;
+    protected int attackDelay = 30;
+    protected int attackCounter = 0;
+    protected boolean attacking = false;
+    protected boolean reset = false;
 
 
     public Slush(Main islush, String SVGData, double xLocation, double yLocation, Image... spriteCels){
@@ -56,8 +60,6 @@ public class Slush extends Hero {
         setDirection();
         moveSlush(iX,iY);
         checkCollision();
-
-
     }
     public void checkCollision(){                                 //collision testing and handling
         boolean hasCollided = false;
@@ -274,6 +276,7 @@ public class Slush extends Hero {
             }
             if(slush.isAttack()){
                 slush.setAttack();
+                reset = true;
             }
         }
         counter+=1;
@@ -290,19 +293,27 @@ public class Slush extends Hero {
                 slush.setFalling(true);
             }
         }
+        if(slush.isAttack()){
+            if(reset){
+                reset = false;
+                throwSword();
+            }
+        }
+
+
     }
     public void setDirection(){
-        if(isFlipH){
+        if(isFlipH){                                   //facing left
             super.getSpriteFrame().setScaleX(-1);
-        }else{
+        }else{                                        //facing right
             super.getSpriteFrame().setScaleX(1);
         }
     }
     public void setXYLocation(){
         if(slush.isRight()) {iX += vX;}
         if(slush.isLeft())  {iX -= vX;}
-        if(slush.isDown())  {iY += vY;}
-        if(slush.isUp())    {iY -= vY;}
+        if(slush.isDown())  {}
+        if(slush.isUp())    {}
     }
     private void setBoundries(){
         if (iX >= rightBoundary)  { iX=rightBoundary;  }
@@ -425,7 +436,75 @@ public class Slush extends Hero {
             }
         }
     }
+    private void throwSword() {
+        if(isFlipH){                       //facing left
+            //System.out.println("throw "+slush.isUp());
+            if ((slush.isUp()) && (slush.isLeft())) {
+                Prop currProp = new Prop("M150 0 L75 200 L225 200 Z", slush.slush.spriteFrame.getTranslateX(), slush.slush.spriteFrame.getTranslateY(), sword.get(7));
+                currProp.getSpriteFrame().setTranslateX((currProp.getSpriteFrame().getTranslateX()) - 25);
+                currProp.getSpriteFrame().setTranslateY((currProp.getSpriteFrame().getTranslateY()) - 10);
+                currProp.setType('7');
+                slush.propList.add(currProp);
+                slush.getRoot().getChildren().add(currProp.getSpriteFrame());
+            }else if((slush.isLeft())&&(slush.isDown())){
+                Prop currProp = new Prop("M150 0 L75 200 L225 200 Z", slush.slush.spriteFrame.getTranslateX(),slush.slush.spriteFrame.getTranslateY() ,sword.get(5));
+                currProp.getSpriteFrame().setTranslateX((currProp.getSpriteFrame().getTranslateX())-25);
+                currProp.getSpriteFrame().setTranslateY((currProp.getSpriteFrame().getTranslateY())+20);
+                currProp.setType('5');
+                slush.propList.add(currProp);
+                slush.getRoot().getChildren().add(currProp.getSpriteFrame());
+            }else if(slush.isUp()) {
+                Prop currProp = new Prop("M150 0 L75 200 L225 200 Z", slush.slush.spriteFrame.getTranslateX(), slush.slush.spriteFrame.getTranslateY(), sword.get(0));
+                currProp.getSpriteFrame().setTranslateX((currProp.getSpriteFrame().getTranslateX()) );
+                currProp.getSpriteFrame().setTranslateY((currProp.getSpriteFrame().getTranslateY()) - 10);
+                currProp.setType('0');
+                slush.propList.add(currProp);
+                slush.getRoot().getChildren().add(currProp.getSpriteFrame());
+            }else{
+                Prop currProp = new Prop("M150 0 L75 200 L225 200 Z", slush.slush.spriteFrame.getTranslateX(), slush.slush.spriteFrame.getTranslateY(), sword.get(6));
+                currProp.getSpriteFrame().setTranslateX((currProp.getSpriteFrame().getTranslateX()) - 25);
+                currProp.getSpriteFrame().setTranslateY((currProp.getSpriteFrame().getTranslateY()) + 10);
+                currProp.setType('6');
+                slush.propList.add(currProp);
+                slush.getRoot().getChildren().add(currProp.getSpriteFrame());
+
+            }
+        }else{                             //facing right
+            //System.out.println("throw right"+slush.isUp());
+            if((slush.isUp())&&(slush.isRight())){
+                Prop currProp = new Prop("M150 0 L75 200 L225 200 Z", slush.slush.spriteFrame.getTranslateX(), slush.slush.spriteFrame.getTranslateY(), sword.get(1));
+                currProp.getSpriteFrame().setTranslateX((currProp.getSpriteFrame().getTranslateX()) + 25);
+                currProp.getSpriteFrame().setTranslateY((currProp.getSpriteFrame().getTranslateY()) - 10);
+                currProp.setType('1');
+                slush.propList.add(currProp);
+                slush.getRoot().getChildren().add(currProp.getSpriteFrame());
+            }else if((slush.isRight())&&(slush.isDown())){
+                Prop currProp = new Prop("M150 0 L75 200 L225 200 Z", slush.slush.spriteFrame.getTranslateX(),slush.slush.spriteFrame.getTranslateY() ,sword.get(3));
+                currProp.getSpriteFrame().setTranslateX((currProp.getSpriteFrame().getTranslateX())+25);
+                currProp.getSpriteFrame().setTranslateY((currProp.getSpriteFrame().getTranslateY())+20);
+                currProp.setType('3');
+                slush.propList.add(currProp);
+                slush.getRoot().getChildren().add(currProp.getSpriteFrame());
+            }else if(slush.isUp()) {
+                Prop currProp = new Prop("M150 0 L75 200 L225 200 Z", slush.slush.spriteFrame.getTranslateX(), slush.slush.spriteFrame.getTranslateY(), sword.get(0));
+                currProp.getSpriteFrame().setTranslateX((currProp.getSpriteFrame().getTranslateX()));
+                currProp.getSpriteFrame().setTranslateY((currProp.getSpriteFrame().getTranslateY()) - 10);
+                currProp.setType('0');
+                slush.propList.add(currProp);
+                slush.getRoot().getChildren().add(currProp.getSpriteFrame());
+            }else{
+                Prop currProp = new Prop("M150 0 L75 200 L225 200 Z", slush.slush.spriteFrame.getTranslateX(), slush.slush.spriteFrame.getTranslateY(), sword.get(2));
+                currProp.getSpriteFrame().setTranslateX((currProp.getSpriteFrame().getTranslateX()) + 25);
+                currProp.getSpriteFrame().setTranslateY((currProp.getSpriteFrame().getTranslateY()) + 10);
+                currProp.setType('2');
+                slush.propList.add(currProp);
+                slush.getRoot().getChildren().add(currProp.getSpriteFrame());
+            }
+        }
+    }
     public void setSpriteCurr(int spriteCurr) {this.spriteCurr = spriteCurr;}
     public void setCounter(int counter) {this.counter = counter;}
+
+
 
 }
